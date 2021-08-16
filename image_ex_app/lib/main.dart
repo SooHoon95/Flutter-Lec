@@ -33,29 +33,42 @@ class MyHomePage extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                'images/001.png',
-                width: 100,
-                height: 100,
-                fit: BoxFit.scaleDown,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'images/001.png',
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.scaleDown,
+                  ),
+                ],
               ),
+            ),
+            SizedBox(
+              height: 100,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                'images/002.png',
-                width: 100,
-                height: 100,
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                'images/003.png',
-                width: 100,
-                height: 100,
-                fit: BoxFit.scaleDown,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'images/002.png',
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.scaleDown,
+                  ),
+                  SizedBox(
+                    width: 100,
+                  ),
+                  Image.asset(
+                    'images/003.png',
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.scaleDown,
+                  ),
+                ],
               ),
             ),
           ],
