@@ -1,3 +1,4 @@
+import 'package:crud_app/Select.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert'; // For Json
@@ -45,10 +46,17 @@ class _UpdateActionState extends State<UpdateAction> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print("$code / $name");
+    _codeController = TextEditingController();
+    _nameController = TextEditingController();
+    _deptController = TextEditingController();
+    _phoneController = TextEditingController();
+
     _codeController.text = this.code;
     _nameController.text = this.name;
     _deptController.text = this.dept;
     _phoneController.text = this.phone;
+    data = [];
   }
 
   @override
@@ -59,7 +67,7 @@ class _UpdateActionState extends State<UpdateAction> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Insert % return for Crud'),
+          title: Text('Insert & return for Crud'),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -68,10 +76,10 @@ class _UpdateActionState extends State<UpdateAction> {
               child: Column(
                 children: [
                   TextField(
-                    controller: _codeController,
-                    decoration: InputDecoration(labelText: '학번'),
-                    keyboardType: TextInputType.text,
-                  ),
+                      controller: _codeController,
+                      decoration: InputDecoration(labelText: '학번'),
+                      keyboardType: TextInputType.text,
+                      readOnly: true),
                   SizedBox(
                     height: 15,
                   ),
@@ -102,44 +110,25 @@ class _UpdateActionState extends State<UpdateAction> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        if (code == '' ||
-                            name == '' ||
-                            dept == '' ||
-                            phone == '') {
+                        if (_codeController.text == '' ||
+                            _codeController.text.isEmpty ||
+                            _nameController.text == '' ||
+                            _nameController.text.isEmpty ||
+                            _deptController.text == '' ||
+                            _deptController.text.isEmpty ||
+                            _phoneController.text == '' ||
+                            _phoneController.text.isEmpty) {
                           _showErrorSnackBar(context);
                         } else {
                           code = _codeController.text;
                           name = _nameController.text;
                           dept = _deptController.text;
                           phone = _phoneController.text;
-                          insertJSONDate();
+                          updateJSONData();
                         }
                       });
-
-                      //다이얼로그 띄우기
-                      AlertDialog dialog = AlertDialog(
-                        title: Text(
-                          '입력 결과',
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                        content: Text('입력이 완료 되었습니다.'),
-                        actions: [
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('OK'),
-                          ),
-                        ],
-                      );
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return dialog;
-                          });
                     },
-                    child: Text('입력'),
+                    child: Text('수정'),
                   )
                 ],
               ),
@@ -150,7 +139,7 @@ class _UpdateActionState extends State<UpdateAction> {
     );
   }
 
-  Future<String> insertJSONDate() async {
+  void updateJSONData() async {
     var url = Uri.parse(
         'http://localhost:8080/Flutter/student_update_flutter.jsp?code=$code&name=$name&dept=$dept&phone=$phone');
     var response = await http.get(url);
@@ -158,20 +147,41 @@ class _UpdateActionState extends State<UpdateAction> {
 
     setState(() {
       var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
-      List result = dataConvertedJSON['results'];
-      data.addAll(result);
+      result = dataConvertedJSON['result'];
     });
 
-    late String returnValue; // 리턴 값
-    if (data[0] == 'OK') {
-      returnValue = 'OK';
+    if (result == 'OK') {
+      _showDialog(context);
     } else {
-      returnValue = 'Fail';
       _showErrorSnackBar(context);
     }
-
-    return returnValue;
   }
+}
+
+void _showDialog(BuildContext context) {
+  //다이얼로그 띄우기
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            '수정 결과',
+            style: TextStyle(fontSize: 20.0),
+          ),
+          content: Text('수정이 완료 되었습니다.'),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return Select();
+                }));
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      });
 }
 
 void _showErrorSnackBar(BuildContext context) {

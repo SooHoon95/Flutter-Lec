@@ -55,15 +55,16 @@ class _SelectState extends State<Select> {
                         padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return UpdateAction(
-                                rcode: data[index]['code'],
-                                rname: data[index]['name'],
-                                rdept: data[index]['dept'],
-                                rphone: data[index]['phone'],
-                              );
-                            })).then((value) => getJSONDate());
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) {
+                                return UpdateAction(
+                                  rcode: data[index]['code'],
+                                  rname: data[index]['name'],
+                                  rdept: data[index]['dept'],
+                                  rphone: data[index]['phone'],
+                                );
+                              },
+                            )).then((value) => getJSONDate());
                           },
                           child: Container(
                             child: Column(
