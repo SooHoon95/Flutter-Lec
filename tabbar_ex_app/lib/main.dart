@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage>
       ),
       bottomNavigationBar: TabBar(
         // 기본은 white
-        labelColor: Colors.blueAccent,
+        labelColor: Colors.red,
         tabs: [
           Tab(
             icon: Icon(
