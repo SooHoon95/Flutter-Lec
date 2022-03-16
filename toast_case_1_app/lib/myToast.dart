@@ -23,10 +23,10 @@ class MyToast extends StatelessWidget {
   void toastAction() {
     Fluttertoast.showToast(
         msg: 'Toast Button is clicked',
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.red,
         textColor: Colors.white,
         fontSize: 14.0,
         toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.TOP);
+        gravity: ToastGravity.BOTTOM);
   }
 }

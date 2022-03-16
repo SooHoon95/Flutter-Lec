@@ -1,4 +1,4 @@
-package com.example.webview_app
+package com.higenis.webview_app
 
 import io.flutter.embedding.android.FlutterActivity
 

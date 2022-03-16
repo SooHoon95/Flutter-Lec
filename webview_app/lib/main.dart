@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   TextEditingController urlController = TextEditingController();
   late String urlPath = 'www.daum.net';
-  late String urlFinal = 'https://www.daum.net';
+  late String urlFinal = 'http://192.168.120.21:8080/';
 
   @override
   Widget build(BuildContext context) {
